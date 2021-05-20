@@ -1,0 +1,31 @@
+<wsdl:definitions
+     name="gtm_ebs_td_customer_portal_in_client"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/http/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in_client"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/http/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in_client"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:msg_in_out="http://xmlns.oracle.com/apps/otm/transmission/v6.4"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="Request_Response_plt" >
+    <plt:role name="Request-Response_role" >
+      <plt:portType name="tns:Request_Response_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/apps/otm/transmission/v6.4" schemaLocation="oramds:/apps/B2BMetadata/OTM/xsd/Transmission.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="Transmission_msg_in">
+        <wsdl:part name="Transmission" element="msg_in_out:Transmission"/>
+    </wsdl:message>
+    <wsdl:message name="TransmissionAck_msg_out">
+        <wsdl:part name="TransmissionAck" element="msg_in_out:TransmissionAck"/>
+    </wsdl:message>
+    <wsdl:portType name="Request_Response_ptt">
+        <wsdl:operation name="Request-Response">
+            <wsdl:input message="tns:Transmission_msg_in"/>
+            <wsdl:output message="tns:TransmissionAck_msg_out"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

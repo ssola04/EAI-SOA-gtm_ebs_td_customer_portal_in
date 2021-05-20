@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" version="Eclipse Persistence Services - 2.6.5.v20170607-b3d05bd">
+   <name>ebs_custport_insert-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>ebs_custport_insert.CieGtmCustPortalTemp</class>
+         <alias>CUSTPORTAL.CIE_GTM_CUST_PORTAL_TEMP</alias>
+         <primary-key>
+            <field table="CIE_GTM_CUST_PORTAL_TEMP" name="RECORD_ID" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="ebs_custport_insertSelect" xsi:type="read-all-query">
+                  <reference-class>ebs_custport_insert.CieGtmCustPortalTemp</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>recordId</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="RECORD_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>documentSource</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="DOCUMENT_SOURCE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>documentType</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="DOCUMENT_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>documentNumIdentifier</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="DOCUMENT_NUM_IDENTIFIER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>documentNumber</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="DOCUMENT_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fileName</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="FILE_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fileContent</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="FILE_CONTENT" xsi:type="column"/>
+               <attribute-classification>[B</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>transmissionId</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="TRANSMISSION_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerPo</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="CUSTOMER_PO" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceNumber</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="INVOICE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceDate</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="INVOICE_DATE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invSoNumber</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="INV_SO_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>freightCarrier</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="FREIGHT_CARRIER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>mawbNo</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="MAWB_NO" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>repIncoTerm</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="REP_INCO_TERM" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>repIncoTermLocn</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="REP_INCO_TERM_LOCN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>shipmentId</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="SHIPMENT_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>tripId</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="TRIP_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute1</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute2</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute3</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE3" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute4</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE4" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute5</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE5" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute6</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE6" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute7</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE7" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute8</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE8" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute9</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE9" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute10</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE10" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeNumber1</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_NUMBER1" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeNumber2</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_NUMBER2" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeNumber3</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_NUMBER3" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeNumber4</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_NUMBER4" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeNumber5</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_NUMBER5" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeDate1</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_DATE1" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeDate2</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_DATE2" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeDate3</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_DATE3" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeDate4</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_DATE4" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attributeDate5</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ATTRIBUTE_DATE5" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>status</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="STATUS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>errorMessage</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="ERROR_MESSAGE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>processedDate</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="PROCESSED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>creationDate</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="CREATION_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>createdBy</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="CREATED_BY" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>lastUpdateDate</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="LAST_UPDATE_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>lastUpdatedBy</attribute-name>
+               <field table="CIE_GTM_CUST_PORTAL_TEMP" name="LAST_UPDATED_BY" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="CUSTPORTAL.CIE_GTM_CUST_PORTAL_TEMP"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

@@ -1,0 +1,93 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/ebs_custport_insert" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/ebs_custport_insert" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CieGtmCustPortalTempCollection" type="CieGtmCustPortalTempCollection"/>
+   <xs:complexType name="CieGtmCustPortalTempCollection">
+      <xs:sequence>
+         <xs:element name="CieGtmCustPortalTemp" type="CieGtmCustPortalTemp" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CieGtmCustPortalTemp">
+      <xs:sequence>
+         <xs:element name="recordId" type="xs:decimal"/>
+         <xs:element name="documentSource" type="string30" minOccurs="0"/>
+         <xs:element name="documentType" type="string30" minOccurs="0"/>
+         <xs:element name="documentNumIdentifier" type="string30" minOccurs="0"/>
+         <xs:element name="documentNumber" type="string120" minOccurs="0"/>
+         <xs:element name="fileName" type="string120" minOccurs="0"/>
+         <xs:element name="fileContent" type="xs:base64Binary" minOccurs="0"/>
+         <xs:element name="transmissionId" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="customerPo" type="string1000" minOccurs="0"/>
+         <xs:element name="invoiceNumber" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="invoiceDate" type="string120" minOccurs="0" nillable="true"/>
+         <xs:element name="invSoNumber" type="string4000" minOccurs="0" nillable="true"/>
+         <xs:element name="freightCarrier" type="string360" minOccurs="0" nillable="true"/>
+         <xs:element name="mawbNo" type="string240" minOccurs="0"/>
+         <xs:element name="repIncoTerm" type="string240" minOccurs="0" nillable="true"/>
+         <xs:element name="repIncoTermLocn" type="string240" minOccurs="0" nillable="true"/>
+         <xs:element name="shipmentId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="tripId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute1" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute2" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute3" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute4" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute5" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute6" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute7" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute8" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute9" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute10" type="string150" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeNumber1" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeNumber2" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeNumber3" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeNumber4" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeNumber5" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeDate1" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeDate2" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeDate3" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeDate4" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="attributeDate5" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="status" type="string240" minOccurs="0" nillable="true"/>
+         <xs:element name="errorMessage" type="string4000" minOccurs="0" nillable="true"/>
+         <xs:element name="processedDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="createdBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdatedBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string30">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="30"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string120">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="120"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string1000">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="1000"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string4000">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="4000"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string360">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="360"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string240">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="240"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string150">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="150"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

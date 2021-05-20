@@ -1,0 +1,14 @@
+<adapter-config name="b2b_bam_insert" adapter="db" wsdlLocation="../WSDLs/b2b_bam_insert.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="Cloud_DB_EBZD" location="eis/DB/ebs_otm"/>
+  <endpoint-interaction portType="b2b_bam_insert_ptt" operation="insert">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="b2b_bam_insert.CieB2BcBamTransactions"/>
+      <property name="DmlType" value="insert"/>
+      <property name="MappingsMetaDataURL" value="b2b_bam_insert-or-mappings.xml"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+      <property name="DetectOmissions" value="true"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project name="buildsoa" default="createCompositeJar" basedir=".">
+  <!-- must have these properties available -->
+  <property environment="env"/>
+  <property file="project.properties"/>
+  <property file="DEV_build.properties"/>
+  <available property="antpackagefile.exists"    file="${SOA_ORACLE_HOME}/bin/ant-sca-package.xml"/>
+  <property name="composite.deploy.compositeDir" location="."/>
+  <echo message="${composite.deploy.compositeDir}"/>
+  <basename file="${composite.deploy.compositeDir}" property="composite.deploy.compositeName" />
+  <property name="composite.deploy.configplanName" value="${composite.deploy.compositeName}_cfgplan.xml"/>
+  <echo message="${composite.deploy.compositeName}"/>  
+   <target name="prebuild">
+    <echo message="Prebuild Tasks"/>
+	<tstamp> 
+		<format property="time" pattern="yyyyMMdd_HHmmss" /> 
+	</tstamp>
+	<property name="composite.deploy.revision" value="${time}"/>
+   </target>
+     <target name="postbuild"> 
+     <echo message="No Postbuild tasks Defind"/>
+  </target>
+  <target name="createCompositeJar" depends="prebuild">
+    <copy file="${composite.deploy.compositeDir}/${composite.deploy.configplanName}" tofile="${composite.deploy.compositeDir}/configPlan.xml" overwrite="true"/>
+    <echo message=" ================================================================================"></echo>
+    <echo message="Create the jar file for the composite"></echo>
+    <echo message=" ================================================================================"></echo>
+   
+    <ant inheritall="false"  antfile="${env.SOA_ORACLE_HOME}/bin/ant-sca-package.xml">
+      <property name="compositeDir" value="${composite.deploy.compositeDir}/SOA"/>
+      <property name="compositeName" value="${composite.deploy.compositeName}"/>
+      <property name="revision" value="${composite.deploy.revision}"/>
+      <property name="scac.application.home" value="${composite.deploy.compositeDir}/.."/>
+    </ant>
+    <delete file="${basedir}/configPlan.xml"/>
+  </target>
+  <target name="deploy" depends="createCompositeJar">
+    <!-- Deploy the composite jar into the soa server-->
+    <echo message=" ================================================================================"></echo>
+    <echo message="Deploying the composite jar into the soa server http://${http.hostname}:${http.port}"></echo>
+    <echo message=" ================================================================================"></echo>
+    <ant inheritall="false"  antfile="${env.SOA_ORACLE_HOME}/bin/ant-sca-deploy.xml">
+      <property name="serverURL" value="http://${http.hostname}:${http.port}"/>
+      <property name="sarLocation"  value="${composite.deploy.compositeDir}/SOA/deploy/sca_${composite.deploy.compositeName}_rev${composite.deploy.revision}.jar"/>
+      <property name="user" value="${admin.user}"/>
+      <property name="password" value="${admin.password}"/>
+      <property name="overwrite" value="${composite.deploy.overwrite}"/>
+      <property name="forceDefault" value="${composite.deploy.forceDefault}"/>
+      <!--<property name="configplan"  value="${composite.deploy.compositeDir}/configPlan.xml"/>-->
+      <property name="partition" value="${composite.deploy.partition}"/>
+      <property name="failOnError" value="true"/>
+    </ant>
+    <delete file="${composite.deploy.compositeDir}/configPlan.xml"/>
+  </target>
+</project>
+
+

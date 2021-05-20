@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="gtm_ebs_td_customer_portal_in">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="gtm_ebs_td_customer_portal_in_client">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://xmlns.oracle.com/pcbpel/adapter/http/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in_client#wsdl.endpoint(gtm_ebs_td_customer_portal_in_client/Request_Response_pt)</replace>
+            </attribute>
+            <attribute name="location">
+               <replace>WSDLs/gtm_ebs_td_customer_portal_in_client.wsdl</replace>
+            </attribute>
+            <property name="http.verb">
+               <replace>POST</replace>
+            </property>
+            <property name="http.payload">
+               <replace>xml</replace>
+            </property>
+         </binding>
+      </service>
+      <property name="productVersion">
+         <replace>12.2.1.3.0.170820</replace>
+      </property>
+      <property name="compositeID">
+         <replace>e02fa1b4-aaa5-443f-80e0-55604ee3b06a</replace>
+      </property>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="gtm_ebs_td_customer_portal_in">
+         <property name="bpel.config.transaction">
+            <replace>notSupported</replace>
+         </property>
+      </component>
+      <!--Add search and replace rules for the reference properties
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888
+		<replace>8889</replace>
+	<searchReplace>
+	or provide a new replace value like:
+	<replace>http://my-new-server:8889/myservice</replace>-->
+      <reference name="b2b_bam_insert">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="NotificationServiceWrapper">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://xmlns.oracle.com/CIENA/SOA/B2B/NotificationServiceWrapper/Process#wsdl.endpoint(NotificationServiceWrapper_ep/NotificationServiceWrapper_pt)</replace>
+            </attribute>
+            <attribute name="location">
+               <replace>oramds:/apps/B2BMetadata/NotificationServiceWrapper/wsdl/NotificationServiceWrapper.wsdl</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>WSDLDriven</replace>
+            </property>
+         </binding>
+      </reference>
+      <reference name="command_service">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>commendService_client#wsdl.endpoint(commendService_client/execute_pt)</replace>
+            </attribute>
+            <attribute name="location">
+               <replace>oramds:/apps/B2BMetadata/OTM/wsdl/commendService_client.wsdl</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>WSDLDriven</replace>
+            </property>
+         </binding>
+      </reference>
+      <reference name="ebs_custport_insert">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for adapter: 
+	<jca:property name="QueueName"><replace>medmq1</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="Adapters/b2b_bam_insert_db.jca|Adapters/ebs_custport_insert_db.jca|Schemas/b2b_bam_insert_table.xsd|Schemas/cie_soa_b2b_utillity.xsd|Schemas/ebs_attrib_insert_table.xsd|Schemas/ebs_ci_insert_table.xsd|Schemas/ebs_custport_insert_table.xsd|WSDLs/b2b_bam_insert.wsdl|WSDLs/commendService_clientWrapper.wsdl|WSDLs/ebs_custport_insert.wsdl|WSDLs/gtm_ebs_td_customer_portal_in_client.wsdl|wsm-assembly.xml">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>

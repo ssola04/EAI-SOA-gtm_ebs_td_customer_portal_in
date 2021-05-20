@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
+    <dgm:gService name="gtm_ebs_td_customer_portal_in_client">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="192" width="137" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="185" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="gtm_ebs_td_customer_portal_in_client" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/http/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in_client#wsdl.interface(Request_Response_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/http_adapter_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>Request-Response</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gReference name="b2b_bam_insert">
+        <dgm:body borderWidth="2" arcRad="20" X="874" Y="26" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="864" Y="19" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="b2b_bam_insert" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/b2b_bam_insert#wsdl.interface(b2b_bam_insert_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>insert</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="NotificationServiceWrapper">
+        <dgm:body borderWidth="2" arcRad="20" X="874" Y="144" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="864" Y="137" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="NotificationServiceWrapper" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/CIENA/SOA/B2B/NotificationServiceWrapper/Process#wsdl.interface(NotificationServiceWrapper)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="command_service">
+        <dgm:body borderWidth="2" arcRad="20" X="874" Y="262" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="864" Y="255" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="command_service" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="commendService_client#wsdl.interface(execute_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>execute</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="ebs_custport_insert">
+        <dgm:body borderWidth="2" arcRad="20" X="874" Y="380" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="864" Y="373" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="ebs_custport_insert" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/ebs_custport_insert#wsdl.interface(ebs_custport_insert_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>insert</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gComponent name="gtm_ebs_td_customer_portal_in">
+        <dgm:body borderWidth="2" arcRad="20" X="451" Y="177" width="130" height="136">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="441" Y="170" width="150" height="152">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="gtm_ebs_td_customer_portal_in_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/http/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in_client#wsdl.interface(Request_Response_ptt)"/>
+        <dgm:outputPort name="b2b_bam_insert" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/b2b_bam_insert#wsdl.interface(b2b_bam_insert_ptt)"/>
+        <dgm:outputPort name="NotificationServiceWrapper" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/CIENA/SOA/B2B/NotificationServiceWrapper/Process#wsdl.interface(NotificationServiceWrapper)"/>
+        <dgm:outputPort name="command_service" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="commendService_client#wsdl.interface(execute_ptt)"/>
+        <dgm:outputPort name="ebs_custport_insert" X="120" Y="90" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/ebs_custport_insert#wsdl.interface(ebs_custport_insert_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gWireLink source="gtm_ebs_td_customer_portal_in/b2b_bam_insert" target="b2b_bam_insert" width="2">
+        <dgm:gSegment X1="591" Y1="202" X2="615" Y2="202"/>
+        <dgm:gSegment X1="615" Y1="202" X2="615" Y2="36"/>
+        <dgm:gSegment X1="615" Y1="36" X2="864" Y2="36"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="gtm_ebs_td_customer_portal_in/NotificationServiceWrapper" target="NotificationServiceWrapper" width="2">
+        <dgm:gSegment X1="591" Y1="227" X2="630" Y2="227"/>
+        <dgm:gSegment X1="630" Y1="227" X2="630" Y2="154"/>
+        <dgm:gSegment X1="630" Y1="154" X2="864" Y2="154"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="gtm_ebs_td_customer_portal_in/command_service" target="command_service" width="2">
+        <dgm:gSegment X1="591" Y1="252" X2="630" Y2="252"/>
+        <dgm:gSegment X1="630" Y1="252" X2="630" Y2="272"/>
+        <dgm:gSegment X1="630" Y1="272" X2="864" Y2="272"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="gtm_ebs_td_customer_portal_in_client" target="gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in_client" width="2">
+        <dgm:gSegment X1="168" Y1="202" X2="441" Y2="202"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="gtm_ebs_td_customer_portal_in/ebs_custport_insert" target="ebs_custport_insert" width="2">
+        <dgm:gSegment X1="591" Y1="277" X2="615" Y2="277"/>
+        <dgm:gSegment X1="615" Y1="277" X2="615" Y2="390"/>
+        <dgm:gSegment X1="615" Y1="390" X2="864" Y2="390"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+</dgm:gDiagram>

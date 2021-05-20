@@ -1,0 +1,15 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="commendService_client"
+     targetNamespace="commendService_client"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:tns="commendService_client"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="command_service">
+        <plnk:role name="execute_ptt" portType="tns:execute_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="commendService_client" location="oramds:/apps/B2BMetadata/OTM/wsdl/commendService_client.wsdl"/>
+</wsdl:definitions>

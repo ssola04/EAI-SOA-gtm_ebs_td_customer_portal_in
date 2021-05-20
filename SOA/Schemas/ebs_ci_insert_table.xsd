@@ -1,0 +1,37 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/ebs_ci_insert" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/ebs_ci_insert" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CieCustPortalDocHdrCollection" type="CieCustPortalDocHdrCollection"/>
+   <xs:complexType name="CieCustPortalDocHdrCollection">
+      <xs:sequence>
+         <xs:element name="CieCustPortalDocHdr" type="CieCustPortalDocHdr" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CieCustPortalDocHdr">
+      <xs:sequence>
+         <xs:element name="recordId" type="xs:decimal"/>
+         <xs:element name="documentSource" type="string250" minOccurs="0" nillable="true"/>
+         <xs:element name="documentType" type="string250" minOccurs="0" nillable="true"/>
+         <xs:element name="documentNumIdentifier" type="string250" minOccurs="0" nillable="true"/>
+         <xs:element name="documentNumber" type="string250" minOccurs="0" nillable="true"/>
+         <xs:element name="fileName" type="string250" minOccurs="0" nillable="true"/>
+         <xs:element name="fileContent" type="xs:base64Binary" minOccurs="0" nillable="true"/>
+         <xs:element name="status" type="string250" minOccurs="0" nillable="true"/>
+         <xs:element name="errorMessage" type="string4000" minOccurs="0" nillable="true"/>
+         <xs:element name="processedDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="createdBy" type="string250" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdatedBy" type="string250" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string250">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="250"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string4000">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="4000"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

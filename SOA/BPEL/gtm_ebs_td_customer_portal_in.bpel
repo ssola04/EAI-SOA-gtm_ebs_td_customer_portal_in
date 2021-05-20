@@ -1,0 +1,609 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Feb 10 16:39:44 EST 2021
+  Author:  ssola
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="gtm_ebs_td_customer_portal_in"
+               targetNamespace="http://xmlns.oracle.com/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/ebs_ci_insert"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="commendService_client"
+         xmlns:ns3="http://xmlns.oracle.com/apps/otm/transmission/v6.4"
+         xmlns:ns4="http://xmlns.oracle.com/apps/gtm/transmission/v6.4"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns5="process"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/b2b_bam_insert"
+         xmlns:ns7="http://xmlns.oracle.com/CIENA/SOA/B2B/NotificationServiceWrapper/Process"
+         xmlns:ns8="http://xmlns.oracle.com/Application/cie/soa/b2b/utility"
+         xmlns:ns9="http://xmlns.oracle.com/apps/otm/CommandService"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/b2b_bam_insert"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/http/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/gtm_ebs_td_customer_portal_in_client"
+         xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/ebs_attrib_insert"
+         xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/top/ebs_ci_insert"
+         xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/ebs_custport_insert">
+  <!--import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/ebs_ci_insert"
+          location="../WSDLs/ebs_ci_insert.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" ui:processWSDL="true"/-->
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/b2bc_generic_pos_app/gtm_ebs_td_customer_portal_in/b2b_bam_insert"
+          location="../WSDLs/b2b_bam_insert.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" ui:processWSDL="true"/>
+  <import namespace="http://xmlns.oracle.com/Application/cie/soa/b2b/utility"
+          location="../Schemas/cie_soa_b2b_utillity.xsd" importType="http://www.w3.org/2001/XMLSchema"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="b2b_bam_insert" partnerLinkType="ns6:b2b_bam_insert_plt" partnerRole="b2b_bam_insert_role"/>
+    <partnerLink name="NotificationServiceWrapper" partnerLinkType="ns7:NotificationServiceWrapper"
+                 partnerRole="NotificationServiceWrapperProvider"/>
+    <partnerLink name="command_service" partnerLinkType="ns2:command_service" partnerRole="execute_ptt"/>
+    <partnerLink name="gtm_ebs_td_customer_portal_in_client" partnerLinkType="ns11:Request_Response_plt"
+                 myRole="Request-Response_role"/>
+    <partnerLink name="ebs_custport_insert" partnerLinkType="ns14:ebs_custport_insert_plt"
+                 partnerRole="ebs_custport_insert_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="p_email_subject" type="xsd:string"/>
+    <variable name="p_error_message" type="xsd:string"/>
+    <variable name="p_environment" type="xsd:string"/>
+    <variable name="p_composite_name" type="xsd:string"/>
+    <variable name="p_flow_id" type="xsd:string"/>
+    <variable name="p_component_instance_id" type="xsd:string"/>
+    <variable name="p_composite_instance_title" type="xsd:string"/>
+    <variable name="countOfIds" type="xsd:int"/>
+    <variable name="varCount" type="xsd:int"/>
+    <variable name="p_main_id" type="xsd:string"/>
+    <variable name="cie_shipment_id" type="xsd:string"/>
+    <variable name="cie_no_doc_flag" type="xsd:string"/>
+    <variable name="refNumValue" type="xsd:string"/>
+    <variable name="varDocumentID" type="xsd:string"/>
+    <variable name="NoDocFlag" type="xsd:string"/>
+    <variable name="utilityVar" element="ns8:request"/>
+    <variable name="InvokeCommandService_execute_InputVariable" messageType="ns2:requestMessage"/>
+    <variable name="InvokeCommandService_execute_OutputVariable" messageType="ns2:replyMessage"/>
+    <variable name="p_temp" type="xsd:string"/>
+    <variable name="Invoke_bam_failure_insert_InputVariable" messageType="ns6:CieB2BcBamTransactionsCollection_msg"/>
+    <variable name="p_tp_name" type="xsd:string"/>
+    <variable name="Invoke_Notification_process_InputVariable"
+              messageType="ns7:NotificationServiceWrapperRequestMessage"/>
+    <variable name="otmTramissionVar" messageType="ns11:Transmission_msg_in"/>
+    <variable name="Receive_Input_Request-Response_InputVariable" messageType="ns11:Transmission_msg_in"/>
+    <variable name="Reply_output_Request-Response_OutputVariable" messageType="ns11:TransmissionAck_msg_out"/>
+    <variable name="soa_node_name" type="xsd:string"/>
+    <variable name="Invoke_bam_success_insert_InputVariable" messageType="ns6:CieB2BcBamTransactionsCollection_msg"/>
+    <variable name="p_b2b_message_id" type="xsd:string"/>
+    <variable name="Invoke_ebs_custport_data_insert_InputVariable"
+              messageType="ns14:CieGtmCustPortalTempCollection_msg"/>
+    <variable name="InvokeNotification_process_InputVariable"
+              messageType="ns7:NotificationServiceWrapperRequestMessage"/>
+    <variable name="p_subject" type="xsd:string"/>
+    <variable name="p_payload_header" type="xsd:string"/>
+    <variable name="p_compositeinstance_title" type="xsd:string"/>
+    <variable name="p_error_mail_list" type="xsd:string"/>
+    <variable name="v_invoice_date" type="xsd:string"/>
+    <variable name="Invoke_command_getInv_date_execute_InputVariable" messageType="ns2:requestMessage"/>
+    <variable name="Invoke_command_getInv_date_execute_OutputVariable" messageType="ns2:replyMessage"/>
+  </variables>
+  <faultHandlers>
+    <catchAll>
+      <sequence name="Sequence5">
+        <assign name="Assign_error">
+          <copy>
+            <from>ora:getFaultAsString()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_error_message</to>
+          </copy>
+          <copy>
+            <from>ora:getFlowId()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_flow_id</to>
+          </copy>
+          <copy>
+            <from>'OTM To CustomerPortal'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_tp_name</to>
+          </copy>
+          <copy>
+            <from>$Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionHeader/ns3:SenderTransmissionNo</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_b2b_message_id</to>
+          </copy>
+        </assign>
+        <scope name="Scope1">
+          <faultHandlers>
+            <catchAll>
+              <sequence><assign name="Assign_Notification"
+                              xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                  <copy>
+                    <from>dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_err_notifications.dvm", "NOTIFICATION_GROUP",ora:getCompositeName(),"NOTIFICATION_SUBJECT","")</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_subject</to>
+                  </copy>
+                  <copy>
+                    <from>ora:getFaultAsString()</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_error_message</to>
+                  </copy>
+                  <copy>
+                    <from>concat(dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_contacts.dvm", "GROUP","Env", "CONTACT",""),' (',$soa_node_name,')')</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_environment</to>
+                  </copy>
+                  <copy>
+                    <from>concat($p_subject,' - ',$p_environment)</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Subject</to>
+                  </copy>
+                  <copy>
+                    <from>dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/bpel_error_dist_list.dvm","BPEL_PROCCESS_NAME",ora:getCompositeName(),"DISTRIBUTION_LIST","")</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/To_Email_Address</to>
+                  </copy>
+                  <copy>
+                    <from>concat('&lt;TABLE width="100%" border=0&gt;  &lt;TBODY&gt;       &lt;TR&gt;          &lt;TD colSpan=2 bgcolor=#FB6400 align=center&gt;    &lt;font color=white size=5&gt;B2B OTM-GTM Customer Portal Integration Error Report&lt;/font&gt;   &lt;/TD&gt;       &lt;/TR&gt;        &lt;TR&gt;          &lt;TD width="20%"&gt;    &lt;font color=#01A1B9&gt;&lt;B&gt;Customer Name&lt;/B&gt;&lt;/font&gt;   &lt;/TD&gt;             &lt;TD width="80%"&gt;', $p_tp_name, '&lt;/TD&gt;       &lt;/TR&gt;        &lt;TR&gt;         &lt;TD width="20%" &gt;    &lt;font color=#01A1B9&gt;&lt;/TD&gt;      &lt;/TR&gt;                 &lt;TR&gt;     &lt;TD width="20%" &gt;&lt;font color=#01A1B9&gt;&lt;B&gt; Transmission No&lt;/B&gt;&lt;/font&gt;&lt;/TD&gt;     &lt;TD width="80%"&gt;', $p_b2b_message_id, '&lt;/TD&gt;   &lt;/TR&gt;	&lt;TR&gt;        &lt;TD width="20%" &gt;    &lt;font color=#01A1B9&gt;&lt;B&gt;BPEL Process Name&lt;/B&gt;&lt;/font&gt;   &lt;/TD&gt;          &lt;TD width="80%"&gt;', ora:getCompositeName(), '&lt;/TD&gt;      &lt;/TR&gt;          &lt;TR&gt;          &lt;TD width="20%"&gt;    &lt;font color=#01A1B9&gt;&lt;B&gt;Process Instance ID&lt;/B&gt;&lt;/font&gt;   &lt;/TD&gt;          &lt;TD width="80%"&gt;', ora:getFlowId(), '&lt;/TD&gt;      &lt;/TR&gt;         &lt;TR&gt;          &lt;TD colSpan=2 bgcolor=#FB6400 align=center&gt;    &lt;marquee behavior=alternate&gt;&lt;font color=white&gt;&lt;B&gt;BPEL Error Message&lt;B&gt;&lt;/font&gt;&lt;/marquee&gt;   &lt;/TD&gt;      &lt;/TR&gt;       &lt;TR&gt;          &lt;TD colSpan=2&gt;', $p_error_message, '&lt;/TD&gt;       &lt;/TR&gt;     &lt;/TBODY&gt; &lt;/TABLE&gt;')</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Body</to>
+                  </copy>
+                  <copy>
+                    <from>ora:getCompositeName()</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/SendingApplicationName</to>
+                  </copy>
+                  <copy>
+                    <from>'Y'</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Mode</to>
+                  </copy>
+                  <copy>
+                    <from>ora:getFlowId()</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Flexi1</to>
+                  </copy>
+                  <copy>
+                    <from>$Receive_Input_Request-Response_InputVariable.Transmission</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Flexi2</to>
+                  </copy>
+                  <copy>
+                    <from>'E'</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Flexi4</to>
+                  </copy>
+                </assign><invoke name="Invoke_Notification" partnerLink="NotificationServiceWrapper"
+                              portType="ns7:NotificationServiceWrapper" operation="process"
+                              inputVariable="Invoke_Notification_process_InputVariable" bpelx:invokeAsDetail="no"
+                              xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                              xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+                <exit name="Terminate"/>
+              </sequence>
+            </catchAll>
+          </faultHandlers>
+          <sequence name="Sequence6">
+            <assign name="Assign_bam_failure">
+              <copy>
+                <from>xp20:current-dateTime()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionDate</to>
+              </copy>
+              <copy>
+                <from>'OTM/GTM To EBS'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:customerName</to>
+              </copy>
+              <copy>
+                <from>'GTM_CI_COO'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionIdentifier</to>
+              </copy>
+              <copy>
+                <from>'GTM Trade Documents'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionType</to>
+              </copy>
+              <copy>
+                <from>$Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionHeader/ns3:SenderTransmissionNo</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionNumber</to>
+              </copy>
+              <copy>
+                <from>'E'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:status</to>
+              </copy>
+              <copy>
+                <from>'O'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionDirection</to>
+              </copy>
+              <copy>
+                <from>$p_main_id</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:payloadId</to>
+              </copy>
+              <copy>
+                <from>$p_main_id</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:custPoNumber</to>
+              </copy>
+              <copy>
+                <from>ora:getProcessId()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:processName</to>
+              </copy>
+              <copy>
+                <from>$p_flow_id</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:bpelInstanceId</to>
+              </copy>
+              <copy>
+                <from>$p_environment</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:environment</to>
+              </copy>
+              <copy>
+                <from>xp20:current-dateTime()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:creationDate</to>
+              </copy>
+              <copy>
+                <from>xp20:current-dateTime()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:lastUpdateDate</to>
+              </copy>
+              <copy>
+                <from>'Failed'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:cienaStatus</to>
+              </copy>
+              <copy>
+                <from>'Sent'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:customerStatus</to>
+              </copy>
+              <copy>
+                <from>substring($p_error_message,1,1000)</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:errorMessage</to>
+              </copy>
+              <copy>
+                <from>'OTM_GTM'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_failure_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:tpName</to>
+              </copy>
+            </assign>
+            <invoke name="Invoke_bam_failure" partnerLink="b2b_bam_insert"
+                    portType="ns6:b2b_bam_insert_ptt" operation="insert"
+                    inputVariable="Invoke_bam_failure_insert_InputVariable" bpelx:invokeAsDetail="no"/>
+            <assign name="Assign_Notification" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+              <copy>
+                <from>dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_err_notifications.dvm", "NOTIFICATION_GROUP",ora:getCompositeName(),"NOTIFICATION_SUBJECT","")</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_subject</to>
+              </copy>
+              <copy>
+                <from>ora:getFaultAsString()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_error_message</to>
+              </copy>
+              <copy>
+                <from>concat(dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_contacts.dvm", "GROUP","Env", "CONTACT",""),' (',$soa_node_name,')')</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_environment</to>
+              </copy>
+              <copy>
+                <from>concat($p_subject,' - ',$p_environment)</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Subject</to>
+              </copy>
+              <copy>
+                <from>dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/bpel_error_dist_list.dvm","BPEL_PROCCESS_NAME",ora:getCompositeName(),"DISTRIBUTION_LIST","")</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/To_Email_Address</to>
+              </copy>
+              <copy>
+                <from>concat('&lt;TABLE width="100%" border=0&gt;  &lt;TBODY&gt;       &lt;TR&gt;          &lt;TD colSpan=2 bgcolor=#FB6400 align=center&gt;    &lt;font color=white size=5&gt;B2B OTM-GTM Customer Portal Integration Error Report&lt;/font&gt;   &lt;/TD&gt;       &lt;/TR&gt;        &lt;TR&gt;          &lt;TD width="20%"&gt;    &lt;font color=#01A1B9&gt;&lt;B&gt;Customer Name&lt;/B&gt;&lt;/font&gt;   &lt;/TD&gt;             &lt;TD width="80%"&gt;', $p_tp_name, '&lt;/TD&gt;       &lt;/TR&gt;        &lt;TR&gt;         &lt;TD width="20%" &gt;    &lt;font color=#01A1B9&gt;&lt;/TD&gt;      &lt;/TR&gt;                 &lt;TR&gt;     &lt;TD width="20%" &gt;&lt;font color=#01A1B9&gt;&lt;B&gt; Transmission No&lt;/B&gt;&lt;/font&gt;&lt;/TD&gt;     &lt;TD width="80%"&gt;', $p_b2b_message_id, '&lt;/TD&gt;   &lt;/TR&gt;	&lt;TR&gt;        &lt;TD width="20%" &gt;    &lt;font color=#01A1B9&gt;&lt;B&gt;BPEL Process Name&lt;/B&gt;&lt;/font&gt;   &lt;/TD&gt;          &lt;TD width="80%"&gt;', ora:getCompositeName(), '&lt;/TD&gt;      &lt;/TR&gt;          &lt;TR&gt;          &lt;TD width="20%"&gt;    &lt;font color=#01A1B9&gt;&lt;B&gt;Process Instance ID&lt;/B&gt;&lt;/font&gt;   &lt;/TD&gt;          &lt;TD width="80%"&gt;', ora:getFlowId(), '&lt;/TD&gt;      &lt;/TR&gt;         &lt;TR&gt;          &lt;TD colSpan=2 bgcolor=#FB6400 align=center&gt;    &lt;marquee behavior=alternate&gt;&lt;font color=white&gt;&lt;B&gt;BPEL Error Message&lt;B&gt;&lt;/font&gt;&lt;/marquee&gt;   &lt;/TD&gt;      &lt;/TR&gt;       &lt;TR&gt;          &lt;TD colSpan=2&gt;', $p_error_message, '&lt;/TD&gt;       &lt;/TR&gt;     &lt;/TBODY&gt; &lt;/TABLE&gt;')</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Body</to>
+              </copy>
+              <copy>
+                <from>ora:getCompositeName()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/SendingApplicationName</to>
+              </copy>
+              <copy>
+                <from>'Y'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Mode</to>
+              </copy>
+              <copy>
+                <from>ora:getFlowId()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Flexi1</to>
+              </copy>
+              <copy>
+                <from>$Receive_Input_Request-Response_InputVariable.Transmission</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Flexi2</to>
+              </copy>
+              <copy>
+                <from>'E'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_Notification_process_InputVariable.payload/Flexi4</to>
+              </copy>
+            </assign>
+            <invoke name="Invoke_Notification" partnerLink="NotificationServiceWrapper"
+                    portType="ns7:NotificationServiceWrapper" operation="process"
+                    inputVariable="Invoke_Notification_process_InputVariable" bpelx:invokeAsDetail="no"/>
+            <exit name="terminate"/>
+          </sequence>
+        </scope>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in gtm_ebs_td_customer_portal_in.wsdl) -->
+    <receive name="Receive_Input" createInstance="yes" partnerLink="gtm_ebs_td_customer_portal_in_client"
+             portType="ns11:Request_Response_ptt" operation="Request-Response"
+             variable="Receive_Input_Request-Response_InputVariable">
+      <bpelx:fromProperties>
+        <bpelx:fromProperty name="jca.aq.MessageId" variable="p_b2b_message_id"/>
+        <bpelx:fromProperty name="jca.aq.HeaderDocument" variable="p_payload_header"/>
+      </bpelx:fromProperties>
+    </receive>
+    <extensionActivity>
+      <bpelx:exec name="Java_Embedding">
+        <![CDATA[try     
+{     
+java.net.InetAddress addr = java.net.InetAddress.getLocalHost();         
+String hostname = addr.getHostName();    
+String temp=".ciena.com";    
+hostname=hostname.substring(0, hostname.indexOf(temp));    
+setVariableData("soa_node_name", hostname);     
+}catch(Exception e)     
+{     
+e.printStackTrace();    
+}]]>
+      </bpelx:exec>
+    </extensionActivity>
+    <assign name="AssignVariables">
+      <copy>
+        <from>1</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$varCount</to>
+      </copy>
+      <copy>
+        <from>$Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionBody/ns3:GLogXMLElement/ns4:GtmTransaction/ns4:GtmTransactionGid[1]/ns3:Gid/ns3:Xid</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_main_id</to>
+      </copy>
+      <copy>
+        <from>substring-after(substring-before($p_payload_header, '&lt;/MSG_ID&gt;'), '&lt;MSG_ID&gt;')</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_b2b_message_id</to>
+      </copy>
+      <copy>
+        <from>oraext:setFlowInstanceTitle(concat('GTM Tx ID: ',$p_main_id))</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_compositeinstance_title</to>
+      </copy>
+      <copy>
+        <from>dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_err_notifications.dvm", "NOTIFICATION_GROUP",ora:getComponentName(), "NOTIFICATION_SUBJECT","")</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_email_subject</to>
+      </copy>
+      <copy>
+        <from>substring-after(substring-before($p_payload_header,"&lt;/FROM_PARTY&gt;"), "&lt;FROM_PARTY&gt;")</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_tp_name</to>
+      </copy>
+      <copy>
+        <from>$Receive_Input_Request-Response_InputVariable.Transmission</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_temp</to>
+      </copy>
+      <copy>
+        <from>dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_contacts.dvm", "GROUP","SendToEmail", "CONTACT","")</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_error_mail_list</to>
+      </copy>
+      <copy>
+        <from>concat(dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_contacts.dvm", "GROUP","Env", "CONTACT",""),' (',$soa_node_name,')')</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_environment</to>
+      </copy>
+      <copy>
+        <from>ora:getFlowId()</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$p_flow_id</to>
+      </copy>
+    </assign>
+    <assign name="FilterRefNum">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from>ora:doXSLTransformForDoc("../Transformations/FilterRefNum_1.xsl", $Receive_Input_Request-Response_InputVariable.Transmission)</from>
+        <to variable="otmTramissionVar" part="Transmission"/>
+      </copy>
+    </assign>
+    <assign name="PrepareFile">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from>ora:doXSLTransformForDoc("../Transformations/PrepareFile_1.xsl", $otmTramissionVar.Transmission)</from>
+        <to variable="utilityVar"/>
+      </copy>
+    </assign>
+    <assign name="Initialize_counter">
+      <copy>
+        <from>count($otmTramissionVar.Transmission/ns3:TransmissionBody/ns3:GLogXMLElement/ns4:GtmTransaction/ns4:Refnum)</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$countOfIds</to>
+      </copy>
+    </assign>
+    <while name="WhileDocExists">
+      <condition>$varCount &lt;= $countOfIds</condition>
+      <sequence name="Sequence3">
+        <sequence>
+          <assign name="GetDocumentID">
+            <copy>
+              <from>$otmTramissionVar.Transmission/ns3:TransmissionBody/ns3:GLogXMLElement/ns4:GtmTransaction/ns4:Refnum[$varCount]/ns3:RefnumValue</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$varDocumentID</to>
+            </copy>
+            <copy>
+              <from>'QueryOutput'</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeCommandService_execute_InputVariable.process/ns5:request/ns5:Query/ns5:RootName</to>
+            </copy>
+            <copy>
+              <from>concat("select DOCUMENT_CONTENT_GID,BLOB_CONTENT from document_content where DOCUMENT_CONTENT_GID =", "'",$varDocumentID,"'")</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeCommandService_execute_InputVariable.process/ns5:request/ns5:Query/ns5:Statement</to>
+            </copy>
+          </assign>
+          <invoke name="InvokeCommandService" partnerLink="command_service" portType="ns2:execute_ptt"
+                  operation="execute" inputVariable="InvokeCommandService_execute_InputVariable"
+                  outputVariable="InvokeCommandService_execute_OutputVariable" bpelx:invokeAsDetail="no"/><assign name="GetInvoiceDate"
+                                                                                                                  xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+            <copy>
+              <from>concat($Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionBody/ns3:GLogXMLElement/ns4:GtmTransaction/ns4:GtmTransactionGid/ns3:Gid/ns3:DomainName,'.',$Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionBody/ns3:GLogXMLElement/ns4:GtmTransaction/ns4:GtmTransactionGid/ns3:Gid/ns3:Xid)</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$v_invoice_date</to>
+            </copy>
+            <copy>
+              <from>'QueryOutput'</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_command_getInv_date_execute_InputVariable.process/ns5:request/ns5:Query/ns5:RootName</to>
+            </copy>
+            <copy>
+              <from>concat("select INSTRUCTIONS from GTM_TRANSACTION_REQDOC where DOCUMENT_DEF_GID like 'CIE.CI%' and GTM_TRANSACTION_GID=", "'",$v_invoice_date,"'")</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_command_getInv_date_execute_InputVariable.process/ns5:request/ns5:Query/ns5:Statement</to>
+            </copy>
+          </assign><invoke name="Invoke_command_getInv_date" partnerLink="command_service" portType="ns2:execute_ptt"
+                              operation="execute" inputVariable="Invoke_command_getInv_date_execute_InputVariable"
+                              outputVariable="Invoke_command_getInv_date_execute_OutputVariable"
+                              bpelx:invokeAsDetail="no" xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                              xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/><if name="CheckDocumentPresent">
+            <documentation>
+              <![CDATA[no_data]]>
+            </documentation>
+            <condition>contains($InvokeCommandService_execute_OutputVariable.processResponse/ns5:xml2sql/ns5:TRANSACTION_SET/ns5:OtmDb,'NO_DATA')</condition>
+            <assign name="RaiseNoDataFlag">
+              <copy>
+                <from>'true'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$NoDocFlag</to>
+              </copy>
+            </assign>
+            <else>
+              <documentation>
+                <![CDATA[proceed]]>
+              </documentation>
+              <sequence name="Sequence4">
+                <assign name="Assign_Document_Content">
+                  <copy>
+                    <from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$varDocumentID</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$utilityVar/ns8:gtm_document[$varCount]/ns8:gtm_document_id</to>
+                  </copy>
+                  <copy>
+                    <from>substring-before(substring-after(oraext:get-content-as-string($InvokeCommandService_execute_OutputVariable.processResponse),'&lt;BLOB_CONTENT&gt;'),'&lt;/BLOB_CONTENT&gt;')</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$utilityVar/ns8:gtm_document[$varCount]/ns8:gtm_document_content</to>
+                  </copy>
+                  <copy>
+                    <from>substring-before(substring-after(oraext:get-content-as-string($Invoke_command_getInv_date_execute_OutputVariable.processResponse),'&lt;INSTRUCTIONS&gt;'),'&lt;/INSTRUCTIONS&gt;')</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$v_invoice_date</to>
+                  </copy>
+                  <copy>
+                    <from>substring($v_invoice_date,11,11)</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$v_invoice_date</to>
+                  </copy>
+                  <copy>
+                    <from>$v_invoice_date</from>
+                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$utilityVar/ns8:gtm_document[$varCount]/ns8:gtm_invoice_date</to>
+                  </copy>
+                </assign>
+              </sequence>
+            </else>
+          </if>
+        </sequence><assign name="IncrementCounter"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      <copy>
+         <from>$varCount + 1</from>
+         <to>$varCount</to>
+      </copy>
+   </assign></sequence></while>
+    <assign name="Insert_gtm_custport">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from>ora:doXSLTransformForDoc("../Transformations/Transform_gtm_custport.xsl", $Receive_Input_Request-Response_InputVariable.Transmission, "utilityVar", $utilityVar)</from>
+        <to variable="Invoke_ebs_custport_data_insert_InputVariable" part="CieGtmCustPortalTempCollection"/>
+      </copy>
+    </assign>
+    <invoke name="Invoke_ebs_custport_data" partnerLink="ebs_custport_insert"
+            portType="ns14:ebs_custport_insert_ptt" operation="insert"
+            inputVariable="Invoke_ebs_custport_data_insert_InputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="Assign_bam_success">
+      <copy>
+        <from>xp20:current-dateTime()</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:creationDate</to>
+      </copy>
+      <copy>
+        <from>xp20:current-dateTime()</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:lastUpdateDate</to>
+      </copy>
+      <copy>
+        <from>'Sent'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:cienaStatus</to>
+      </copy>
+      <copy>
+        <from>'Received'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:customerStatus</to>
+      </copy>
+      <copy>
+        <from>'OTM/GTM To EBS'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:customerName</to>
+      </copy>
+      <copy>
+        <from>$Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionHeader/ns3:SenderTransmissionNo</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionNumber</to>
+      </copy>
+      <copy>
+        <from>'S'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:status</to>
+      </copy>
+      <copy>
+        <from>concat(dvm:lookupValue("oramds:/apps/B2BMetadata/dvm/cie_b2b_contacts.dvm", "GROUP","Env", "CONTACT",""),' (',$soa_node_name,')')</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:environment</to>
+      </copy>
+      <copy>
+        <from>$p_b2b_message_id</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:b2BMessageId</to>
+      </copy>
+      <copy>
+        <from>$p_flow_id</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:bpelInstanceId</to>
+      </copy>
+      <copy>
+        <from>$Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionBody/ns3:GLogXMLElement/ns4:GtmTransaction/ns4:GtmTransactionGid/ns3:Gid/ns3:Xid</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:payloadId</to>
+      </copy>
+      <copy>
+        <from>$Receive_Input_Request-Response_InputVariable.Transmission/ns3:TransmissionBody/ns3:GLogXMLElement/ns4:GtmTransaction/ns4:GtmTransactionGid/ns3:Gid/ns3:Xid</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:custPoNumber</to>
+      </copy>
+      <copy>
+        <from>'GTM_CI_COO'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionIdentifier</to>
+      </copy>
+      <copy>
+        <from>'GTM Trade Documents'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionType</to>
+      </copy>
+      <copy>
+        <from>'OTM_GTM'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:tpName</to>
+      </copy>
+      <copy>
+        <from>ora:getProcessId()</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:processName</to>
+      </copy>
+      <copy>
+        <from>'O'</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke_bam_success_insert_InputVariable.CieB2BcBamTransactionsCollection/ns10:CieB2BcBamTransactions/ns10:transactionDirection</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke_bam_success" bpelx:invokeAsDetail="no" partnerLink="b2b_bam_insert"
+            portType="ns6:b2b_bam_insert_ptt" operation="insert"
+            inputVariable="Invoke_bam_success_insert_InputVariable"/>
+    <!-- Generate reply to synchronous request -->
+    <reply name="Reply_output" partnerLink="gtm_ebs_td_customer_portal_in_client" portType="ns11:Request_Response_ptt"
+           operation="Request-Response" variable="Reply_output_Request-Response_OutputVariable"/>
+  </sequence>
+</process>

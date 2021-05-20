@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" version="Eclipse Persistence Services - 2.6.5.v20170607-b3d05bd">
+   <name>b2b_bam_insert-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>b2b_bam_insert.CieB2BcBamTransactions</class>
+         <alias>CIE_B2BC_BAM_TRANSACTIONS</alias>
+         <primary-key>
+            <field table="CIE_B2BC_BAM_TRANSACTIONS" name="BAM_SEQUENCE" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="b2b_bam_insertSelect" xsi:type="read-all-query">
+                  <reference-class>b2b_bam_insert.CieB2BcBamTransactions</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>transactionDate</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="TRANSACTION_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>tpName</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="TP_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerName</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="CUSTOMER_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>custPoNumber</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="CUST_PO_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>poRevision</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="PO_REVISION" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>transactionType</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="TRANSACTION_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>transactionIdentifier</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="TRANSACTION_IDENTIFIER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>transactionNumber</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="TRANSACTION_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>status</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="STATUS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderNumber</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ORDER_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cpodsApprovalRequested</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="CPODS_APPROVAL_REQUESTED" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cpodsApprovalReceived</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="CPODS_APPROVAL_RECEIVED" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>omApprovalRequested</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="OM_APPROVAL_REQUESTED" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>omApprovalReceived</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="OM_APPROVAL_RECEIVED" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>transactionDirection</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="TRANSACTION_DIRECTION" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>errorMessage</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ERROR_MESSAGE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>payloadId</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="PAYLOAD_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>refPayloadId</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="REF_PAYLOAD_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>b2BMessageId</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="B2B_MESSAGE_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>processName</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="PROCESS_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bpelInstanceId</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="BPEL_INSTANCE_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>environment</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ENVIRONMENT" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute1</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ATTRIBUTE1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute2</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ATTRIBUTE2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute3</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ATTRIBUTE3" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute4</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ATTRIBUTE4" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>attribute5</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="ATTRIBUTE5" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>coinStatus</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="COIN_STATUS" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>creationDate</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="CREATION_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>lastUpdateDate</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="LAST_UPDATE_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deliveryNumber</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="DELIVERY_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceNumber</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="INVOICE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cienaStatus</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="CIENA_STATUS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerStatus</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="CUSTOMER_STATUS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bamSequence</attribute-name>
+               <field table="CIE_B2BC_BAM_TRANSACTIONS" name="BAM_SEQUENCE" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="CIE_B2BC_BAM_TRANSACTIONS"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

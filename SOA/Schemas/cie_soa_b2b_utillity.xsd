@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+            targetNamespace="http://xmlns.oracle.com/Application/cie/soa/b2b/utility"
+            xmlns:tns="http://xmlns.oracle.com/Application/cie/soa/b2b/utility"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="request">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="cie_gtm_trx_id" type="xsd:string"/>
+        <xsd:element name="cie_flow_id" type="xsd:string"/>
+        <xsd:element name="cie_composite_name" type="xsd:string"/>
+        <xsd:element name="cie_email_list" type="xsd:string"/>
+        <xsd:element name="cie_notification_subject" type="xsd:string"/>
+        <xsd:element name="cie_env_name" type="xsd:string"/>
+        <xsd:element name="cie_transaction_type" type="xsd:string"/>
+        <xsd:element name="cie_sending_app_name" type="xsd:string"/>
+        <xsd:element name="cie_mode" type="xsd:string"/>
+        <xsd:element name="cie_error_msg" type="xsd:string"/>
+        <xsd:element name="flexi1" type="xsd:string"/>
+        <xsd:element name="flexi2" type="xsd:string"/>
+        <xsd:element name="flexi3" type="xsd:string"/>
+        <xsd:element name="flexi4" type="xsd:string"/>
+        <xsd:element name="flexi5" type="xsd:string"/>
+        <xsd:element name="gtm_document" type="tns:gtm_document" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="gtm_document">
+    <xsd:sequence>
+      <xsd:element name="gtm_document_id" type="xsd:string"/>
+      <xsd:element name="gtm_document_content" type="xsd:string"/>
+      <xsd:element name="gtm_invoice_date" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

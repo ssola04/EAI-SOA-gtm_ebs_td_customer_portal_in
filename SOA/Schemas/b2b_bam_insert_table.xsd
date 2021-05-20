@@ -1,0 +1,68 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/b2b_bam_insert" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/b2b_bam_insert" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CieB2BcBamTransactionsCollection" type="CieB2BcBamTransactionsCollection"/>
+   <xs:complexType name="CieB2BcBamTransactionsCollection">
+      <xs:sequence>
+         <xs:element name="CieB2BcBamTransactions" type="CieB2BcBamTransactions" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CieB2BcBamTransactions">
+      <xs:sequence>
+         <xs:element name="transactionDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="tpName" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="customerName" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="custPoNumber" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="poRevision" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="transactionType" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="transactionIdentifier" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="transactionNumber" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="status" type="string5" minOccurs="0" nillable="true"/>
+         <xs:element name="orderNumber" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="cpodsApprovalRequested" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="cpodsApprovalReceived" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="omApprovalRequested" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="omApprovalReceived" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="transactionDirection" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="errorMessage" type="string1000" minOccurs="0" nillable="true"/>
+         <xs:element name="payloadId" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="refPayloadId" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="b2BMessageId" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="processName" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="bpelInstanceId" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="environment" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute1" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute2" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute3" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute4" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="attribute5" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="coinStatus" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="deliveryNumber" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="invoiceNumber" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="cienaStatus" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="customerStatus" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="bamSequence" type="xs:decimal"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string100">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="100"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string20">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="20"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string5">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="5"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string1000">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="1000"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>
